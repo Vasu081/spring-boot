@@ -1,6 +1,7 @@
 package com.task_1.azure_basic_app.Services;
 
 
+import com.task_1.azure_basic_app.DTO.SubjectDTO;
 import com.task_1.azure_basic_app.Models.Subjects;
 import com.task_1.azure_basic_app.Repo.SubjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SubjectService {
@@ -29,7 +31,7 @@ public class SubjectService {
         if (subjectRepo.existsById(id)) {
 
 
-            return ResponseEntity.ok(subjectRepo.findById(id).get());
+            return ResponseEntity.ok(SubjectDTO.convertToSubjectDTO(subjectRepo.findById(id).get()));
         } else {
 
 
@@ -64,6 +66,12 @@ public class SubjectService {
             return ResponseEntity.ok("Subject not found ");
         }
 
+    }
+    public List<SubjectDTO> getAllSubjects() {
+        List<Subjects> subjects = subjectRepo.findAll(); // Fetch all subjects
+        return subjects.stream()
+                .map(SubjectDTO::convertToSubjectDTO) // Convert each Subject to SubjectDTO
+                .collect(Collectors.toList());
     }
 
 }

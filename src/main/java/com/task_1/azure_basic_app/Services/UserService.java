@@ -1,15 +1,22 @@
 package com.task_1.azure_basic_app.Services;
 
 
+import com.task_1.azure_basic_app.DTO.MarksDTO;
+import com.task_1.azure_basic_app.DTO.UsersDTO;
+import com.task_1.azure_basic_app.Models.Marks;
 import com.task_1.azure_basic_app.Repo.UserRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.task_1.azure_basic_app.Models.Users;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -22,17 +29,17 @@ public class UserService {
         System.out.println("user is "+user);
         return "save successfully";
     }
-public List<Users> allUsers()
+
+
+public UsersDTO getUserById(Long id)
 {
 
-    return userRepo.findAll();
-}
+    if(userRepo.existsById(id))
 
-public Optional<Users> getUserById(Long id)
-{
-
-
-    return userRepo.findById(id);
+    {   Users user=userRepo.findById(id).get();
+        return (UsersDTO.convertToDTO(user));
+    }
+     throw new RuntimeException("User not found with ID "+id) ;
 }
 
 public String deleteById(Long id)
@@ -44,7 +51,7 @@ public String deleteById(Long id)
     }
     else {
 
-        return "user not found";
+        throw new RuntimeException("User not found with ID "+id) ;
     }
 
 }
@@ -70,10 +77,16 @@ public String updateUser(Long id,Users updatedUsers)
 
     else {
 
-        return "user not found";
+        throw new RuntimeException("User not found with ID "+id) ;
     }
 
 }
+    public List<UsersDTO> getAllUsers() {
+        List<Users> users = userRepo.findAll(); // Use a `findAllWithMarks` query if necessary
+        return users.stream().map(UsersDTO::convertToDTO).collect(Collectors.toList());
+    }
+
+
 
 }
 

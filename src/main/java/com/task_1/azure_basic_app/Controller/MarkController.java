@@ -1,6 +1,7 @@
 package com.task_1.azure_basic_app.Controller;
 
 
+import com.task_1.azure_basic_app.DTO.MarksDTO;
 import com.task_1.azure_basic_app.Models.Marks;
 import com.task_1.azure_basic_app.Models.Users;
 import com.task_1.azure_basic_app.Services.MarkService;
@@ -25,9 +26,11 @@ public class MarkController {
 
     }
     @GetMapping
-    public List<Marks> getalldata()
+    public List<MarksDTO> getalldata()
     {
-        return markService.getAllMarks();
+
+        return markService.getAllMarkss();
+//        return markService.getAllMarks();
     }
 
     @PutMapping("/{id}")

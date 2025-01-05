@@ -1,6 +1,7 @@
 package com.task_1.azure_basic_app.Controller;
 
 
+import com.task_1.azure_basic_app.DTO.UsersDTO;
 import com.task_1.azure_basic_app.Models.Users;
 import com.task_1.azure_basic_app.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +25,17 @@ private UserService userService;
         return userService.createuser(users);
     }
     @GetMapping("/{id}")
-    public Optional<Users> getUserById(@PathVariable long id)
+    public UsersDTO getUserById(@PathVariable long id)
     {
 
         return userService.getUserById(id);
     }
 
     @GetMapping("/readAll")
-    public List<Users> getALlUserBYID()
+    public List<?> getALlUserBYID()
     {
 
-        return userService.allUsers();
+        return userService.getAllUsers();
     }
 
     @PutMapping("/{id}")

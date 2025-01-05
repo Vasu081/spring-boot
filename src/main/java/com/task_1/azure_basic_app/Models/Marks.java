@@ -1,6 +1,7 @@
 package com.task_1.azure_basic_app.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class Marks {
 
     @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "userId", nullable = false)
+
     private Users students;
 
     private int mark;

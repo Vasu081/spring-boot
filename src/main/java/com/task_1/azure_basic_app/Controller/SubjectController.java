@@ -1,5 +1,6 @@
 package com.task_1.azure_basic_app.Controller;
 
+import com.task_1.azure_basic_app.DTO.SubjectDTO;
 import com.task_1.azure_basic_app.Models.Subjects;
 import com.task_1.azure_basic_app.Services.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,10 @@ public class SubjectController {
     }
 
     @GetMapping
-    public List<Subjects> getSubject()
+    public List<SubjectDTO> getSubject()
     {
-        return subjectService.getAllSubject();
+//        return subjectService.getAllSubject();
+            return subjectService.getAllSubjects();
     }
 
     @GetMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.task_1.azure_basic_app.Services;
 
+import com.task_1.azure_basic_app.DTO.MarksDTO;
 import com.task_1.azure_basic_app.Models.Marks;
 import com.task_1.azure_basic_app.Models.Subjects;
 import com.task_1.azure_basic_app.Models.Users;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MarkService {
@@ -145,5 +147,12 @@ public class MarkService {
         return userMarks.stream()
                 .anyMatch(mark -> mark.getSubjects().getSubject_code() == subjectId);
     }
+    public List<MarksDTO> getAllMarkss() {
+        List<Marks> marks = markRepo.findAll();
+        return marks.stream()
+                .map(MarksDTO::convertMarksToDTOWithUser)
+                .collect(Collectors.toList());
+    }
+
 
 }

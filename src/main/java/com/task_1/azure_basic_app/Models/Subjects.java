@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "subjects")
 @Getter
@@ -14,6 +16,10 @@ public class Subjects {
 
 private long subject_code;
     private String subject_name;
+
+    @OneToMany(mappedBy = "subjects")
+//    @JoinColumn(name = "marks_subject" ,referencedColumnName = "Id")
+    private List<Marks> marks;
 
 
 }

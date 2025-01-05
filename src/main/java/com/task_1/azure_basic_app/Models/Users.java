@@ -1,7 +1,11 @@
 package com.task_1.azure_basic_app.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -35,7 +39,8 @@ public class Users {
         TEACHER
     }
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "userId" ,referencedColumnName = "Id")
-//    private Marks marks;
+    @OneToMany(mappedBy = "students",fetch = FetchType.LAZY)
+
+//    @JoinColumn(name = "marks_student" ,referencedColumnName = "Id")
+    private List<Marks> marks;
 }
